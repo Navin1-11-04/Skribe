@@ -13,8 +13,7 @@ import { toast } from "sonner";
 import DocumentList from "./document-list";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import TrashBox from "./trash-box";
-import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
+
 
 const Navigation = () => {
   const pathname = usePathname();
@@ -115,7 +114,7 @@ const Navigation = () => {
       <aside
         ref={sidebar}
         className={cn(
-          "group/sidebar h-full bg-secondary/30 overflow-y-auto relative flex w-60 flex-col z-[9999]}",
+          "group/sidebar h-full bg-background overflow-y-auto relative flex w-60 flex-col z-[9999]} py-2.5 ",
           isResetting && "transition-all ease-in-out duration-300",
           isMobile && "w-0"
         )}
@@ -138,15 +137,19 @@ const Navigation = () => {
           <Item onClick={handleCreate} label="New Page" icon={PlusCircle} />
           </div>
         </div>
-        <div className="mt-4">
+        <div className="my-4 py-2.5  h-full max-h-[80%] overflow-y-hidden">
+          <h2 className="mb-2.5 px-2.5 font-semibold text-sm w-full text-accent-foreground">
+             All Notes
+          </h2>
+          <div
+          className="w-full max-h-[93%] overflow-y-auto px-2.5 py-1"
+          >
           <DocumentList/>
-          <Item 
-          icon={Plus}
-          label="Add a page"
-          onClick={handleCreate} 
-          />
-          <Popover>
-            <PopoverTrigger className="w-full mt-4">
+          </div>
+        </div>
+        <div className="w-full m-auto bg-gray-100">
+           <Popover>
+            <PopoverTrigger className="w-full my-2.5 px-2.5">
               <Item label="Trash" icon={Trash2} />
             </PopoverTrigger>
             <PopoverContent

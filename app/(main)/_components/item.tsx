@@ -94,18 +94,19 @@ const Item = ({
         onClick={onClick}
         role="button"
         style={{
-            paddingLeft: level ? `${(level * 12)+ 12}px`:"12px"
+            paddingLeft: level ? `${(level * 12)+ 12}px`:"0px"
         }}
         className={cn(
-            "group min-h-[35px] text-sm py-1 pr-3 w-full hover:bg-zinc-100 flex items-center text-muted-foreground font-[450]",
-            active && "bg-zinc-100 text-primary")}
+            "group min-h-[35px] text-sm w-full hover:bg-gray-100 hover:outline-1 outline-gray-200 rounded-sm flex items-center text-muted-foreground hover:text-primary font-medium cursor-default pr-1",
+            active && "text-primary",
+            label == "Trash" && "hover:outline-none")}
         >   {!!id && (
             <div role="button"
-            className="h-full rounded-sm hover:bg-zinc-300 dark:bg-neutral-600 mr-1"
+            className="h-full mx-1.5"
             onClick={handleExpand}
             >
                 <ChevronIcon
-                className="h-4 w-4 shrink-0 text-muted-foreground/50"/>
+                className="h-4 w-4 shrink-0 text-muted-foreground"/>
             </div>
         )}
            {documentIcon ? (
@@ -113,9 +114,9 @@ const Item = ({
                 {documentIcon}
             </div>
            ) : (
-            <Icon className="shrink-0 h-[18px] mr-2 text-ring"/>
+            <Icon className="shrink-0 mr-2 h-4 w-4"/>
            )}
-            <span className="truncate">
+            <span className="truncate mr-2">
             {label}
             </span>
             {isSearch && (
@@ -126,7 +127,7 @@ const Item = ({
                 </kbd>
             )}
             {!!id && (
-                <div className="ml-auto flex items-center gap-x-2">
+                <div className="ml-auto flex items-center gap-x-1">
                     <DropdownMenu>
                         <DropdownMenuTrigger
                         onClick={(e) => e.stopPropagation()}
@@ -134,9 +135,9 @@ const Item = ({
                         >
                           <div
                           role="button"
-                          className="opacity-0 flex items-center justify-center group-hover:opacity-100 h-6 w-6 ml-auto rounded-xs hover:bg-zinc-200 dark:hover:bg-neutral-600"
+                          className="opacity-0 flex items-center justify-center group-hover:opacity-100 h-5.5 w-5.5 ml-auto hover:bg-gray-200 text-muted-foreground hover:text-primary rounded-full"
                           >
-                            <MoreHorizontal className="h-4 w-4 text-accent-foreground cursor-pointer"/>
+                            <MoreHorizontal className="h-4 w-4 hover:text-primary cursor-pointer"/>
                           </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent
@@ -157,8 +158,8 @@ const Item = ({
                     <div
                     role="button"
                     onClick={onCreate}
-                    className="opacity-0 flex items-center justify-center group-hover:opacity-100 h-6 w-6 ml-auto rounded-xs hover:bg-zinc-200 dark:hover:bg-neutral-600">
-                        <Plus className="text-accent-foreground w-5 h-5" />
+                    className="opacity-0 flex items-center justify-center cursor-pointer group-hover:opacity-100 h-5.5 w-5.5 ml-auto rounded-full hover:bg-gray-200">
+                        <Plus className="text-muted-foreground w-4 h-4 hover:text-primary" strokeWidth={"2.3"} />
                     </div>
                 </div>
             )}
