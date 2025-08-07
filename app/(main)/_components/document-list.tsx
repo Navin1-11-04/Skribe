@@ -61,11 +61,11 @@ const DocumentList = ({
         <>
         <p 
         style={{
-            paddingLeft:level ? `${(level *12)+25}px` : undefined
+            paddingLeft:level ? `${(level *12)+18}px` : undefined
         }}
         className={cn(
-            "hidden text-sm font-medium text-muted-foreground/50",
-            expanded && "last:block py-0.5",
+            "hidden text-[13px] font-medium text-muted-foreground/70 py-1",
+            expanded && "last:block ",
             level === 0 && "hidden",
         )}
         >
