@@ -19,17 +19,17 @@ export const Useritem = () => {
       <DropdownMenuTrigger asChild>
         <div
           role="button"
-          className="flex items-center text-sm py-3 px-2.5 w-full hover:bg-sidebar-accent cursor-pointer"
+          className="flex items-center text-sm py-2.5 px-3 w-full hover:bg-sidebar-ring/15 cursor-pointer justify-between"
         >
           <div className="gap-x-3 flex items-center max-w-[150px]">
             <Avatar className="h-6 w-6">
               <AvatarImage src={user?.imageUrl} />
             </Avatar>
-            <span className="text-start font-medium line-clamp-1 text-foreground">
+            <span className="text-start font-[550] line-clamp-1 text-foreground">
               {user?.fullName}
             </span>
           </div>
-          {/* <ChevronsLeftRight className="rotate-90 ml-3 text-sidebar-primary/50 h-4 w-4" /> */}
+          <ChevronsLeftRight className="rotate-90 ml-3 text-primary/50 h-4 w-4" />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent

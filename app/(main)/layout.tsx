@@ -23,7 +23,7 @@ const MainLayout = ({
         return redirect("/");
     }
     return (
-        <div className="h-full flex dark:bg-[#1f1f1f]">
+        <div className="h-full flex bg-background">
             <Navigation />
             <main className="flex-1 h-full overflow-y-auto">
             <SearchCommand/>

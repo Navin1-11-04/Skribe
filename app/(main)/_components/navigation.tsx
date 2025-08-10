@@ -1,7 +1,7 @@
 "use client";
 
-import { ChevronLeft, FilePlus2, Folder, Menu, PanelLeft, PanelRight, Plus, PlusCircle, Search, Settings, ToolCase, Trash2 } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { ChevronLeft, FilePlus2, Folder, Menu, PanelLeft, PanelRight, Plus, PlusCircle, Search, Settings, SquarePlus, ToolCase, Trash2, UserRoundPen } from "lucide-react";
+import { useParams, usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { cn } from "@/lib/utils";
@@ -14,10 +14,15 @@ import DocumentList from "./document-list";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import TrashBox from "./trash-box";
 import { useSearch } from "@/hooks/use-search";
+import { useSettings } from "@/hooks/use-settings";
 import { Button } from "@/components/ui/button";
+import { Navbar } from "./navbar";
+import Image from "next/image";
 
 const Navigation = () => {
   const search = useSearch();
+  const settings = useSettings();
+  const params = useParams();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -116,30 +121,43 @@ const Navigation = () => {
       <aside
         ref={sidebar}
         className={cn(
-          "group/sidebar h-full bg-sidebar overflow-y-auto relative flex w-60 flex-col z-[9999]}",
+          "group/sidebar h-full bg-sidebar dark:bg-sidebar-accent overflow-y-auto relative flex w-60 flex-col z-[9999]}",
           isResetting && "transition-all ease-in-out duration-300",
           isMobile && "w-0"
         )}
       > 
-        <div className="flex items-center justify-end gap-x-1 p-2.5 border-b-1">     
+        <div className="flex items-center justify-between gap-x-1 p-2.5 border-b-1">     
+        <div>
+              <Image 
+                    src="/logo_dark.svg"
+                    height="70"
+                    width="80"
+                    alt='logo'
+                    className='dark:hidden'
+                    />
+              <Image 
+                    src="/logo_light.svg"
+                    height="70"
+                    width="80"
+                    alt='logo'
+                    className='hidden dark:block'
+              />
+        </div>
         <div
           role="button"
           onClick={collapse}
           className={cn(
-            "text-sidebar-ring opacity-100 group-hover/sidebar:text-primary flex items-center cursor-pointer hover:bg-sidebar-ring/15 p-1 rounded-sm",
+            "text-sidebar-ring opacity-100 group-hover/sidebar:text-primary flex items-center hover:bg-sidebar-ring/15 p-1 rounded-sm",
             isMobile && "opacity-100"
           )}
         >
           <PanelLeft className="h-5 w-5" strokeWidth="2"/>
         </div>
         </div>
-        {/* <div>
-          <Useritem />
-        </div> */}
         <div className="py-3 px-2.5  mr-0.5 h-full max-h-[80%] overflow-y-hidden border-b">
           <div className="flex items-end justify-between w-full h-auto pb-1">
-          <h2 className="flex items-center-safe gap-x-2 font-semibold text-sm w-full text-accent-foreground">
-            <Folder className="w-4.5 h-4.5 mb-0.5"/>
+          <h2 className="flex items-center-safe gap-x-2 font-bold text-sm w-full text-accent-foreground">
+            <Folder className="w-4.5 h-4.5 mb-0.5" strokeWidth={2.2}/>
              All Notes
           </h2>
             <div
@@ -160,21 +178,21 @@ const Navigation = () => {
         </div>
         <div>
         <div className="w-full h-auto py-3">
-          <h2 className="px-2.5 pb-2 flex items-center-safe gap-x-2 font-semibold text-sm w-full text-accent-foreground">
+          <h2 className="px-2.5 pb-2 flex items-center-safe gap-x-2 font-bold text-sm w-full text-accent-foreground">
             <ToolCase className="w-5 h-5 mb-1.5"/>
              Tools
           </h2>
           <div className="w-full">
             <Item label="Search" icon={Search} isSearch onClick={search.onOpen} variant="utility" />
-            <Item label="Settings" icon={Settings} variant="utility" />
-            <Item onClick={handleCreate} label="New Note" icon={PlusCircle} variant="utility" />
+            <Item label="Settings" icon={Settings} onClick={settings.onOpen} variant="utility" />
+            <Item onClick={handleCreate} label="New Note" icon={SquarePlus} variant="utility" />
           </div>
         </div>
         </div>
         <div className="w-full m-auto border-t-1 hover:bg-sidebar-ring/15">
            <Popover>
             <PopoverTrigger className="w-full my-2 px-2.5">
-              <Item label="Trash" icon={Trash2} />
+              <Item label="Trash" icon={Trash2}/>
             </PopoverTrigger>
             <PopoverContent
             className="w-60 max-h-[92.5vh]"
@@ -184,6 +202,13 @@ const Navigation = () => {
               <TrashBox />
             </PopoverContent>
           </Popover>
+        </div>
+        <div className="border-t-1">
+          {/* <div className="flex items-center-safe gap-x-2 px-2.5 pt-2 pb-1">
+          <UserRoundPen className="w-4.5 h-4.5 mb-1" strokeWidth={2.2}/>
+          <h2 className="font-bold text-sm">Profile</h2>
+          </div> */}
+          <Useritem />
         </div>
         <div
           onMouseDown={handleMouseDown}
@@ -199,6 +224,13 @@ const Navigation = () => {
           isMobile && "left-0 w-full"
         )}
       >
+        {!!params.documentId ? (
+          <Navbar
+          isCollapsed={isCollapsed}
+          onResetWidth={resetWidth}
+          />
+        ):(
+
         <nav className="bg-transparent px-3 py-2 w-full">
           {isCollapsed && (
             <Menu
@@ -208,7 +240,7 @@ const Navigation = () => {
             />
           )}
         </nav>
-
+        )}
       </div>
     </>
   );

@@ -5,16 +5,16 @@ const Logo = () => {
   return (
     <div className="hidden md:flex items-center gap-x-2">
         <Image 
-        src="/logo_light.svg"
-        height="40"
-        width="70"
+        src="/logo_dark.svg"
+        height="50"
+        width="120"
         alt='logo'
         className='dark:hidden'
         />
         <Image 
-        src="/logo_dark.svg"
-        height="40"
-        width="70"
+        src="/logo_light.svg"
+        height="50"
+        width="120"
         alt='logo'
         className='hidden dark:block'
         />

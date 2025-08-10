@@ -64,7 +64,7 @@ const DocumentList = ({
             paddingLeft:level ? `${(level *12)+18}px` : undefined
         }}
         className={cn(
-            "hidden text-[13px] font-medium text-muted-foreground/70 py-1",
+            "hidden text-[13.5px] font-[550] text-muted-foreground/60 py-1",
             expanded && "last:block ",
             level === 0 && "hidden",
         )}

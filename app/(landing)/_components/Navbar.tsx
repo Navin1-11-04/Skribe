@@ -11,41 +11,42 @@ import { Spinner } from "@/components/Spinner";
 import Link from "next/link";
 
 const Navbar = () => {
-    const { isAuthenticated,isLoading } = useConvexAuth();
-    const scrolled = useScrollTop();
+  const { isAuthenticated, isLoading } = useConvexAuth();
+  const scrolled = useScrollTop();
   return (
-    <div className={cn("z-50 bg-background dark:bg-[#1b1b1b] fixed top-0 flex items-center w-full p-6",scrolled && "border-b shadow-sm")}>
-       <Logo/>
-       <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
-        {isLoading && (
-          <Spinner size={"default"}/>
-        )}
+    <div
+      className={cn(
+        "z-50 bg-background dark:bg-[#1b1b1b] fixed top-0 flex items-center w-full p-6",
+        scrolled && "border-b shadow-sm"
+      )}
+    >
+      <Logo />
+      <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
+        {isLoading && <Spinner size={"default"} />}
         {!isAuthenticated && !isLoading && (
           <>
-           <SignInButton>
-             <Button variant={"ghost"} size={"sm"}>Log in</Button>
-           </SignInButton>
-           <SignInButton>
-             <Button size={"sm"}>Get Jotion Free</Button>
-           </SignInButton>
+            <SignInButton>
+              <Button variant={"ghost"} size={"sm"}>
+                Log in
+              </Button>
+            </SignInButton>
+            <SignInButton>
+              <Button size={"sm"}>Get Jotion Free</Button>
+            </SignInButton>
           </>
         )}
         {isAuthenticated && !isLoading && (
           <>
-           <Button variant={"ghost"} size={"sm"} asChild>
-             <Link href={"/documents"}>
-               Enter Notik
-             </Link>
-           </Button>
-           <UserButton
-            afterSignOutUrl="/"
-           />
+            <Button variant={"ghost"} size={"sm"} asChild>
+              <Link href={"/documents"}>Enter Skribe</Link>
+            </Button>
+            <UserButton afterSignOutUrl="/" />
           </>
         )}
-        <ModeToggle/>
-       </div>
+        <ModeToggle />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

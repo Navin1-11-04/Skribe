@@ -108,13 +108,14 @@ const Item = ({
           : undefined
       }
       className={cn(
-        "group flex items-center-safe min-h-[32px] w-full rounded-sm font-medium cursor-default",
+        "group flex items-center-safe min-h-[32px] w-full rounded-sm font-[550] cursor-default",
         active && "text-primary",
         variant !== "utility" &&
-          "hover:outline-1 outline-sidebar-border text-muted-foreground hover:text-primary pr-1 text-[13px]",
+          "hover:outline-1 outline-sidebar-border text-muted-foreground hover:text-primary pr-1 text-[13.5px]",
         variant === "utility" &&
           "text-muted-foreground hover:bg-sidebar-ring/15 hover:text-accent-foreground py-1 px-4 rounded-none ",
-        label === "Trash" && "hover:outline-none cursor-pointer font-semibold text-primary"
+        label === "Trash" &&
+          "hover:outline-none font-bold text-accent-foreground"
       )}
     >
       {" "}
@@ -126,12 +127,18 @@ const Item = ({
       {documentIcon ? (
         <div className="shrink-0 text-sm">{documentIcon}</div>
       ) : (
-        <Icon className="shrink-0 mr-2 h-4 w-4" />
+        <Icon
+          className={cn(
+            "shrink-0 mr-2 h-4 w-4",
+            label === "Trash" && "font-sm h-4.5 w-4.5 mb-0.5"
+          )}
+          strokeWidth={label === "Trash" ? 2.5 : 2}
+        />
       )}
       <span
         className={cn(
           "truncate mr-2",
-          variant === "utility" ? "mt-0.5 text-[13px] font-[550]" : "mt-1"
+          variant === "utility" ? "mt-0.5 text-[13.5px] font-semibold" : "mt-1"
         )}
       >
         {label}
@@ -205,8 +212,8 @@ Item.skeleton = function ItemSkeleton({ level }: { level?: number }) {
         paddingLeft: level ? `${level * 12 + 25}px` : "12px",
       }}
     >
-      <Skeleton className="h-4 w-4" />
-      <Skeleton className="h-4 w-[30%]" />
+      <Skeleton className="h-4 w-4 bg-sidebar-ring/15" />
+      <Skeleton className="h-4 w-[50%] bg-sidebar-ring/15" />
     </div>
   );
 };
