@@ -8,13 +8,16 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
 import { query } from "@/convex/_generated/server";
+import { useRouter } from "next/navigation";
 
 const DocumentPage = () => {
   const { user } = useUser();
+  const router = useRouter();
   const createNote = useMutation(api.documents.create);
 
   const handleCreate = () => {
-    const promise = createNote({ title: "Untitled" });
+    const promise = createNote({ title: "Untitled" })
+    .then((documentId) => router.push(`/documents/${documentId}`))
     toast.promise(promise, {
       loading: "Creating a new note...",
       success: "New note created!",

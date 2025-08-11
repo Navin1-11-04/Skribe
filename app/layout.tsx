@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="antialiased font-urbanist">
+      <body className="antialiased font-urbanist overflow-hidden">
         <ConvexClientProvider>
           <EdgeStoreProvider>
             <ThemeProvider

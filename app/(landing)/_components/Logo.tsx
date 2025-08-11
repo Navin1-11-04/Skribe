@@ -6,15 +6,15 @@ const Logo = () => {
     <div className="hidden md:flex items-center gap-x-2">
         <Image 
         src="/logo_dark.svg"
-        height="50"
-        width="120"
+        height="30"
+        width="30"
         alt='logo'
         className='dark:hidden'
         />
         <Image 
         src="/logo_light.svg"
-        height="50"
-        width="120"
+        height="30"
+        width="30"
         alt='logo'
         className='hidden dark:block'
         />

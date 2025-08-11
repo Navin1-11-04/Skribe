@@ -9,6 +9,8 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useParams } from "next/navigation";
 import { Id } from "@/convex/_generated/dataModel";
+import { useEdgeStore } from "@/lib/edgestore";
+import { Skeleton } from "./ui/skeleton";
 
 interface CoverImageProps {
     url?:string;
@@ -18,11 +20,15 @@ export const Cover = ({
     url,
     preview
 }: CoverImageProps) => {
+    const {edgestore} = useEdgeStore();
     const coverImage = useCoverImage();
     const params = useParams();
     const removeImage = useMutation(api.documents.removeCoverImage);
 
-    const onRemove = () => {
+    const onRemove = async () => {
+        if(url){
+            await edgestore.publicFiles.delete({url : url});
+        }
         removeImage({
             id:params.documentId as Id<"documents">
         })
@@ -31,22 +37,23 @@ export const Cover = ({
 
     return (
         <div className={cn(
-            "relative w-full h-[40vh] group",
-            !url && "h-[10vh]",
-            url && "bg-muted"
-        )}>
-            {!!url && (
-                <Image
-                src={url}
-                fill
-                alt="Cover Image"
-                className="object-cover"
-                />
-            )}
+    "relative w-full group",
+    !url && "h-[10vh]",
+    url && "h-[35vh] sm:h-[40vh] rounded-xl overflow-hidden shadow-sm"
+  )}
+>
+  {!!url && (
+    <Image
+      src={url}
+      fill
+      alt="Cover Image"
+      className="object-cover transition-transform duration-300 group-hover:scale-105"
+    />
+  )}
             {url && !preview && (
-                <div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex items-center gap-x-2">
+                <div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex items-center gap-x-2 bg-gradient-to-b from-black/20 to-transparent">
                     <Button
-                    onClick={coverImage.onOpen}
+                    onClick={() => coverImage.onReplace(url)}
                     className="text-muted-foreground text-sm rounded-sm font-[550]"
                     variant="outline"
                     size={"sm"}

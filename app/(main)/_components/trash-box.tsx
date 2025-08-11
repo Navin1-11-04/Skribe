@@ -17,7 +17,7 @@ const TrashBox = () => {
   const params = useParams();
   const documents = useQuery(api.documents.getTrash);
   const remove = useMutation(api.documents.remove);
-  const restore = useMutation(api.documents.remove);
+  const restore = useMutation(api.documents.restore);
 
   const [search, setSearch] = useState("");
   const filterDocuments = documents?.filter((documents) => {

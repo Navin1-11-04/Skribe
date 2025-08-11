@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronLeft, FilePlus2, Folder, Menu, PanelLeft, PanelRight, Plus, PlusCircle, Search, Settings, SquarePlus, ToolCase, Trash2, UserRoundPen } from "lucide-react";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { cn } from "@/lib/utils";
@@ -25,6 +25,7 @@ const Navigation = () => {
   const params = useParams();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const router = useRouter();
 
   const isResizing = useRef(false);
   const sidebar = useRef<ElementRef<"aside">>(null);
@@ -109,7 +110,8 @@ const Navigation = () => {
   };
 
   const handleCreate = () => {
-    const promise = createNote({ title: "Untitled" });
+    const promise = createNote({ title: "Untitled" })
+    .then((documentId) =>router.push(`/documents/${documentId}`))
     toast.promise(promise, {
       loading: "Creating a new note...",
       success: "New note created!",
@@ -130,15 +132,15 @@ const Navigation = () => {
         <div>
               <Image 
                     src="/logo_dark.svg"
-                    height="70"
-                    width="80"
+                    height="25"
+                    width="25"
                     alt='logo'
                     className='dark:hidden'
                     />
               <Image 
                     src="/logo_light.svg"
-                    height="70"
-                    width="80"
+                    height="25"
+                    width="25"
                     alt='logo'
                     className='hidden dark:block'
               />

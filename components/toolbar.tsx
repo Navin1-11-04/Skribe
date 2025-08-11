@@ -55,7 +55,7 @@ export const Toolbar = ({
 
 
     return (
-        <div className="pl-0 group relative">
+        <div className="w-full max-w-6xl mx-auto px-6 mt-6 border-b-1 pb-2 mb-2">
             {/* <div className="opacity-0 group-hover:opacity-100 flex items-center gapx-x-1 py-4">
                 {!initialData.coverImage && !preview && (
                     <Button
